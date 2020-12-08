@@ -12,12 +12,28 @@ public class ArraySequence implements IntegerSequence{
     currentIndex=0;
   }
 
+  //second constructor
 
+  //Postcondition: The otherseq will be reset.
+  //This constructor will copy ALL values of the `otherseq` into the data array.
+  public ArraySequence(IntegerSequence otherseq){
+    data = new int[otherseq.length()];
+    for (int i=0; i<otherseq.length(); i++){
+      data[i]=otherseq.next();
+    }
+    otherseq.reset();
+  }
+
+
+  //methods
   public boolean hasNext(){
     return (currentIndex < data.length);
   }
 
   public int next(){
+    if (! hasNext()){
+      throw new NoSuchElementException("" + currentIndex + " out of bounds");
+    }
     currentIndex++;
     return data[currentIndex-1];
   }
@@ -27,7 +43,7 @@ public class ArraySequence implements IntegerSequence{
   }
 
   public void reset(){
-
+    currentIndex=0;
   }
 
   public static void main (String[] args){
